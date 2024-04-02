@@ -10,7 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, 'public'),
   },
   performance: {
-    hints: false, // Disable performance warnings
+    maxAssetSize: 999999999999,
   },
   module: {
     rules: [
