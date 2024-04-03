@@ -1,0 +1,30 @@
+body {
+  font-family: sans-serif;
+}
+
+:root {
+  --mainColor: #e2334d;
+  --mainBorder: 5px solid var(--mainColor);
+}
+
+.App-header {
+  display: flex;
+  align-items: center;
+  font-size: 28px;
+  color: var(--mainColor);
+  border-bottom: var(--mainBorder);
+}
+
+.App-body {
+  height: 440px;
+  padding: 40px;
+  border-bottom: var(--mainBorder);
+  font-size: 20px;
+}
+
+.App-footer {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 20px;
+  font-style: italic;
+}
