@@ -1,4 +1,4 @@
 div.Notifications {
-  border: 5px solid green;
-  padding: 5px;
+  border: 2px dashed var(--mainColor);
+  padding: 16px;
 }
