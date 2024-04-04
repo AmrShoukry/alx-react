@@ -1,0 +1,8 @@
+body {
+  font-family: sans-serif;
+}
+
+:root {
+  --mainColor: #e2334d;
+  --mainBorder: 5px solid var(--mainColor);
+}
