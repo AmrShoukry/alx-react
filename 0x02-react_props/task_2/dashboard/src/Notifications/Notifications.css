@@ -1,0 +1,4 @@
+div.Notifications {
+  border: 2px dashed var(--mainColor);
+  padding: 16px;
+}
