@@ -1,5 +1,7 @@
+import React, { Component } from 'react';
+
 const WithLogging = ({ WrappedComponent }) => {
-  class withLogging extends React.Component {
+  class withLogging extends Component {
     constructor(props) {
       super(props);
     }

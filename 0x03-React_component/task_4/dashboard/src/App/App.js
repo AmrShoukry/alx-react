@@ -24,7 +24,6 @@ const notifications = [
 
 class App extends Component {
   componentDidMount() {
-    console.log('Mounted');
     document.addEventListener('keydown', this.handleKeydown);
   }
 
