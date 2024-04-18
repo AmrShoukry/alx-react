@@ -9,6 +9,7 @@ import { Component } from 'react';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom.js';
 import BodySection from '../BodySection/BodySection.js';
 import { fontFamily } from '../global.js';
+import { MyContext, logOut, user } from './AppContext.js';
 
 const courses = [
   { id: 1, name: 'ES6', credit: 60 },
@@ -28,9 +29,12 @@ class App extends Component {
 
     this.state = {
       displayDrawer: false,
+      user: user,
+      logOut: logOut,
     };
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
+    this.logIn = this.logIn.bind(this);
   }
 
   handleDisplayDrawer() {
@@ -41,6 +45,16 @@ class App extends Component {
     this.setState({ displayDrawer: false });
   }
 
+  logIn(email, password) {
+    this.setState({
+      user: {
+        email: email,
+        password: password,
+        isLoggedIn: true,
+      },
+    });
+  }
+
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeydown);
   }
@@ -48,6 +62,7 @@ class App extends Component {
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeydown);
   }
+
   handleKeydown = (e) => {
     console.log(e.key);
     if (e.ctrlKey && e.key === 'h') {
@@ -57,10 +72,9 @@ class App extends Component {
   };
 
   render() {
-    const { isLoggedIn } = this.props;
-
+    const { user, logOut } = this.state;
     return (
-      <>
+      <MyContext.Provider value={{ user, logOut }}>
         <Notifications
           listNotifications={notifications}
           displayDrawer={this.state.displayDrawer}
@@ -69,34 +83,33 @@ class App extends Component {
         />
         <div style={{ fontFamily: fontFamily }}>
           <Header />
-          {isLoggedIn && (
-            <>
+          <>
+            {console.log(user)}
+            {user.isLoggedIn && (
               <BodySectionWithMarginBottom title="Course list">
                 <CourseList listCourses={courses} />
               </BodySectionWithMarginBottom>
-              <BodySection title="News from the School">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                </p>
-              </BodySection>
-            </>
-          )}
-          {!isLoggedIn && (
-            <BodySectionWithMarginBottom title="Log in to continue">
-              <Login />
-            </BodySectionWithMarginBottom>
-          )}
-
+            )}
+            <BodySection title="News from the School">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </BodySection>
+            {!user.isLoggedIn && (
+              <BodySectionWithMarginBottom title="Log in to continue">
+                <Login logIn={this.logIn} />
+              </BodySectionWithMarginBottom>
+            )}
+          </>
           <Footer />
         </div>
-      </>
+      </MyContext.Provider>
     );
   }
 }
